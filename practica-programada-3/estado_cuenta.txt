@@ -1,0 +1,11 @@
+Detalle de Transacciones:
+ID: 1 - MEGA SUPER SAN JOSÉ - Monto: $100.50
+ID: 2 - UBER VIAJES - Monto: $15.99
+ID: 3 - ECOMMERCE - Monto: $45.25
+ID: 4 - Spotify - Monto: $80.00
+
+RESUMEN DEL ESTADO DE CUENTA:
+Monto total de contado: $241.74
+Monto total con interés (2.6%): $248.03
+Cashback aplicado (0.1%): $0.24
+Monto final a pagar: $247.78
