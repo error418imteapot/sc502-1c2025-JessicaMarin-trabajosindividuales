@@ -1,0 +1,39 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+ 
+.card {
+    border-radius: 8px;
+}
+ 
+.navbar-brand {
+    font-weight: bold;
+}
+ 
+#task-list .card {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+#task-list .list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#task-list .btn-sm {
+    font-size: 0.8rem;
+}
+
+#task-list .form-control {
+    border-radius: 20px;
+}
+
+#task-list .btn-primary {
+    border-radius: 20px;
+}
+
+#task-list .btn-danger {
+    font-size: 0.75rem;
+}
