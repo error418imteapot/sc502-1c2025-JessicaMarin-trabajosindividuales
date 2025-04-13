@@ -8,7 +8,7 @@ if (!isset($_SESSION["user_id"])) {
     echo json_encode(["mensaje" => "Inicie sesion"]);
     exit();
 }
-
+header('Content-Type: application/json');
 // obtener el mtodo de la solicitud
 $method = $_SERVER['REQUEST_METHOD'];
 // manejo aqui las solicitudes según el método
@@ -41,7 +41,7 @@ function obtenerComentarios()
         return;
     }
 
-    $stmt = $conn->prepare("SELECT * FROM comentarios WHERE task_id = ?");
+    $stmt = $conn->prepare("SELECT * FROM comments WHERE task_id = ?");
     $stmt->bind_param("i", $task_id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -56,14 +56,14 @@ function agregarComentario()
 
     $data = json_decode(file_get_contents("php://input"), true);
     $task_id = $data["task_id"] ?? null;
-    $contenido = $data["contenido"] ?? null;
+    $comment = $data["comment"] ?? null;
 
-    if (!$task_id || !$contenido) {
+    if (!$task_id || !$comment) {
         echo json_encode(["mensaje" => "Datos incompletos"]);
         return;
     }
-    $stmt = $conn->prepare("INSERT INTO comentarios (task_id, contenido) VALUES (?, ?)");
-    $stmt->bind_param("is", $task_id, $contenido);
+    $stmt = $conn->prepare("INSERT INTO comments (task_id, comment) VALUES (?, ?)");
+    $stmt->bind_param("is", $task_id, $comment);
     if ($stmt->execute()) {
         echo json_encode(["mensaje" => "Comentario agregado"]);
     } else {
@@ -77,14 +77,14 @@ function actualizarComentario()
 
     parse_str(file_get_contents("php://input"), $data);
     $id = $data["id"] ?? null;
-    $contenido = $data["contenido"] ?? null;
+    $comment = $data["comment"] ?? null;
 
-    if (!$id || !$contenido) {
+    if (!$id || !$comment) {
         echo json_encode(["mensaje" => "Datos incompletos"]);
         return;
     }
-    $stmt = $conn->prepare("UPDATE comentarios SET contenido = ? WHERE id = ?");
-    $stmt->bind_param("si", $contenido, $id);
+    $stmt = $conn->prepare("UPDATE comments SET comment = ? WHERE id = ?");
+    $stmt->bind_param("si", $comment, $id);
     if ($stmt->execute()) {
         echo json_encode(["mensaje" => "Comentario actualizado"]);
     } else {
@@ -98,11 +98,12 @@ function eliminarComentario()
 
     parse_str(file_get_contents("php://input"), $data);
     $id = $data["id"] ?? null;
+
     if (!$id) {
         echo json_encode(["mensaje" => "id no especificado"]);
         return;
     }
-    $stmt = $conn->prepare("DELETE FROM comentarios WHERE id = ?");
+    $stmt = $conn->prepare("DELETE FROM comments WHERE id = ?");
     $stmt->bind_param("i", $id);
     if ($stmt->execute()) {
         echo json_encode(["mensaje" => "Comentario eliminado"]);
